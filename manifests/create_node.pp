@@ -55,22 +55,16 @@ class percona::create_node {
   }
 
   unless str2bool($::percona_db_prepared) {
-    if $::percona::automatic_bootstrap {
-      class { '::percona::prepare_db':
-        require => Exec["${name}-mysql_install_db"],
-        before  => Class['::percona::automatic_bootstrap'],
-      }
-    }
-    else {
-      class { '::percona::prepare_db':
-        require => Exec["${name}-mysql_install_db"],
-      }
+    class { '::percona::prepare_db':
+      require => Exec["${name}-mysql_install_db"],
     }
   }
 
   if $::percona::automatic_bootstrap {
     anchor {"${name}::begin": }          ->
-    class  {'::percona::automatic_bootstrap': } ->
+    class  {'::percona::automatic_bootstrap':
+      require => Class['::percona::prepare_db'],
+    } ->
     anchor {"${name}::end": }
   }
 }
