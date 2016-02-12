@@ -6,7 +6,7 @@ class percona::package {
     'redhat': {
 
       if $percona::db_galera {
-        ensure_packages(['nc', 'pv', 'socat'])
+        ensure_packages(['nmap-ncat', 'pv', 'socat'])
 
         if $percona::is_arbitrator {
 
