@@ -2,6 +2,8 @@
 <%= scope.lookupvar('percona::mysql_logdir') %>/*.log { 
   create 640 mysql mysql 
   daily
+  minsize 1
+  maxsize 10M
   copytruncate
   notifempty 
   rotate 8
