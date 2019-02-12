@@ -91,6 +91,7 @@ class percona::params {
 
   ## Memory in MB
   $reserved_os_memory       = '256'
+  $memorysize_mb            = $::memorysize_mb
 
   ## Percona variables
   $percona_version          = '56'
